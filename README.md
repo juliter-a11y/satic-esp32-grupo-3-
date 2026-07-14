@@ -1,5 +1,5 @@
 ## Líder / Gestor Social
-Aporte de [ERICK ]
+
 ### Información del Proyecto
 El proyecto SATIC-ESP32 tiene como finalidad desarrollar un sistema de alerta temprana de inundaciones mediante el uso del ESP32 y un sensor ultrasónico HC-SR04 para monitorear el nivel del agua y proteger a las comunidades vulnerables.
 
@@ -71,7 +71,8 @@ void loop() {
 }
 
 
-## Redes y Comunicaciones: Configuración Wi-Fi y envío de datos
+### Redes y Comunicaciones: Configuración Wi-Fi y envío de datos
+
 Aporte de [josue]: Configuración de conectividad Wi-Fi y protocolo HTTP para ThingSpeak.
 
 Se agregó la explicación de la conexión de red, el código completo para conectar el ESP32 al Wi-Fi y enviar las lecturas del sensor de nivel de agua a la plataforma ThingSpeak mediante el protocolo HTTP GET.
