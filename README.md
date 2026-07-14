@@ -137,3 +137,43 @@ Se implementará un Smart Contract en la red Blockchain para registrar de forma 
 
 **Tecnología usada:** Solidity en Ethereum / Polygon
 **Beneficio:** Evita falsificación de datos y sirve como evidencia oficial ante inundaciones.
+
+
+# Soporte y Contingencia
+
+**Aporte de [Yakhemmy]:** Plan de resolución de problemas (Troubleshooting) y cálculo de energía del sistema.
+
+## Plan de resolución de problemas (Troubleshooting)
+
+### Sensor HC-SR04 con lodo o suciedad
+
+Si el sensor ultrasónico HC-SR04 se ensucia con lodo, hojas o residuos, las mediciones pueden ser incorrectas o dejar de funcionar. Se recomienda limpiar el sensor periódicamente, verificar que no existan obstáculos frente a él, instalar una cubierta protectora y realizar mantenimiento preventivo antes de la temporada de lluvias.
+
+## Tabla de problemas y soluciones
+
+| Problema | Posible causa | Solución |
+|----------|---------------|----------|
+| ESP32 no enciende | Batería descargada o conexiones sueltas | Revisar la batería, el panel solar y las conexiones. |
+| HC-SR04 no mide correctamente | Sensor sucio o mal conectado | Limpiar el sensor y revisar el cableado. |
+| No hay conexión Wi-Fi | Señal débil o credenciales incorrectas | Verificar la red Wi-Fi y volver a conectar el ESP32. |
+| El buzzer no funciona | Buzzer desconectado o dañado | Revisar las conexiones o reemplazar el buzzer. |
+| No se envían datos a ThingSpeak | Error en la API Key o falta de Internet | Verificar la conexión y la configuración de ThingSpeak. |
+
+## Cálculo de energía
+
+Si la batería tiene una capacidad de **100 Wh** y trabaja con una eficiencia del **85%**, la energía útil se calcula de la siguiente manera:
+
+**Energía útil = 100 Wh × 0.85 = 85 Wh**
+
+**Resultado:** El sistema dispondrá de **85 Wh** de energía útil para alimentar el ESP32, el sensor HC-SR04 y el buzzer.
+
+## Recomendaciones
+
+- Limpiar periódicamente el sensor ultrasónico.
+- Revisar el estado de la batería y del panel solar.
+- Verificar la conexión Wi-Fi antes de cada monitoreo.
+- Probar el buzzer para asegurar el funcionamiento de la alarma.
+
+## Conclusión
+
+El mantenimiento preventivo y el monitoreo constante permiten que el sistema de alerta temprana funcione de forma confiable. Además, una batería de **100 Wh** con una eficiencia del **85%** proporciona **85 Wh** de energía útil para el correcto funcionamiento del sistema.
