@@ -1,5 +1,5 @@
 ## Líder / Gestor Social
-Aporte de [Sofia]: informacion del proyecto
+Aporte de [Erick]: informacion del proyecto, objetivos comunitarios, diagrama.
 ### Información del Proyecto
 El proyecto SATIC-ESP32 tiene como finalidad desarrollar un sistema de alerta temprana de inundaciones mediante el uso del ESP32 y un sensor ultrasónico HC-SR04 para monitorear el nivel del agua y proteger a las comunidades vulnerables.
 
