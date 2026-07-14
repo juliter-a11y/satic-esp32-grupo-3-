@@ -69,14 +69,14 @@ void setup() {
 void loop() {
   // Aquí irá la lógica de medición y activación de alarma
 }
-
+```
 
 ### Redes y Comunicaciones: Configuración Wi-Fi y envío de datos
 
 Aporte de [josue]: Configuración de conectividad Wi-Fi y protocolo HTTP para ThingSpeak.
 
 Se agregó la explicación de la conexión de red, el código completo para conectar el ESP32 al Wi-Fi y enviar las lecturas del sensor de nivel de agua a la plataforma ThingSpeak mediante el protocolo HTTP GET.
-
+```cpp
 #include <WiFi.h>
 #include <HTTPClient.h>
 
@@ -123,6 +123,7 @@ void enviarDatos(float nivelAgua) {
     Serial.println("Sin conexión Wi-Fi, no se pudo enviar el dato");
   }
 }
+```
 
 ## 5. Smart Contract - Blockchain
 **Aporte de: Sofía**
