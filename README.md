@@ -1,5 +1,27 @@
-# satic-esp32-grupo-3-
-sistema de alerta temprana de inundaciones con ESP32-IESTP-ACORA
+## Líder / Gestor Social
+
+### Información del Proyecto
+El proyecto SATIC-ESP32 tiene como finalidad desarrollar un sistema de alerta temprana de inundaciones mediante el uso del ESP32 y un sensor ultrasónico HC-SR04 para monitorear el nivel del agua y proteger a las comunidades vulnerables.
+
+### Objetivos Comunitarios
+- Detectar oportunamente posibles inundaciones.
+- Reducir pérdidas humanas y materiales.
+- Alertar a las autoridades y a la población.
+- Implementar tecnología IoT para el monitoreo del río.
+
+### Diagrama General del Sistema
+
+Sensor HC-SR04
+↓
+ESP32
+↓
+Wi-Fi / Internet
+↓
+ThingSpeak / Blockchain
+↓
+Sirena de Emergencia y Autoridades
+
+
 
 ## Hardware: Componentes y Conexiones
 
