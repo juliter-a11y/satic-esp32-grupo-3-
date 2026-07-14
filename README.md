@@ -70,62 +70,51 @@ void loop() {
   // Aquí irá la lógica de medición y activación de alarma
 }
 
+```
 
-### Redes y Comunicaciones: Configuración Wi-Fi y envío de datos
+## Redes y Comunicaciones (Web 2.0)
 
-Aporte de [josue]: Configuración de conectividad Wi-Fi y protocolo HTTP para ThingSpeak.
+Aporte de [Josue]: Configuración de red WiFi y envío de datos a ThingSpeak.
 
-Se agregó la explicación de la conexión de red, el código completo para conectar el ESP32 al Wi-Fi y enviar las lecturas del sensor de nivel de agua a la plataforma ThingSpeak mediante el protocolo HTTP GET.
+### Conexión WiFi
 
+El ESP32 se conectará a la red WiFi de la comunidad usando las credenciales (SSID y contraseña). En caso de zonas sin cobertura WiFi, se contempla como alternativa un módulo de radiofrecuencia (LoRa) para el envío de datos a distancia.
+
+```cpp
 #include <WiFi.h>
-#include <HTTPClient.h>
 
-const char* ssid = "NOMBRE_DE_TU_RED_WIFI";
-const char* password = "CONTRASEÑA_DE_TU_RED";
-const char* server = "http://api.thingspeak.com/update";
-const char* apiKey = "TU_CLAVE_DE_ESCRITURA_THINGSPEAK";
+const char* ssid = "WiFi_Comunidad";
+const char* password = "contraseña123";
 
-void conectarWiFi() {
+void setup() {
+  Serial.begin(115200);
   WiFi.begin(ssid, password);
-  Serial.print("Conectando a Wi-Fi...");
-  
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    Serial.println("Conectando a WiFi...");
   }
-  
-  Serial.println("\n Conectado exitosamente");
-  Serial.print("IP asignada: ");
+  Serial.println("Conectado a la red WiFi");
   Serial.println(WiFi.localIP());
 }
+```
+
+### Envío de datos a ThingSpeak (HTTP GET)
+Cada cierto intervalo de tiempo (por ejemplo, cada 20 segundos), el ESP32 enviará el dato del nivel de agua medido hacia la plataforma ThingSpeak mediante una petición HTTP GET, usando el API Key del canal creado.
+
+```cpp
+#include <HTTPClient.h>
+
+String serverName = "http://api.thingspeak.com/update?api_key=TU_API_KEY";
 
 void enviarDatos(float nivelAgua) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    
-    // URL completa con el valor del sensor
-    String url = String(server) + "?api_key=" + apiKey + "&field1=" + String(nivelAgua);
-    
+    String url = serverName + "&field1=" + String(nivelAgua);
     http.begin(url);
-    int codigoRespuesta = http.GET();
-    
-    // Verificación del envío
-    if (codigoRespuesta > 0) {
-      Serial.print("Dato enviado. Código: ");
-      Serial.println(codigoRespuesta);
-    } else {
-      Serial.print("Error al enviar. Código: ");
-      Serial.println(codigoRespuesta);
-    }
-    
+    int httpCode = http.GET();
+    Serial.println(httpCode);
     http.end();
-  } else {
-    Serial.println("Sin conexión Wi-Fi, no se pudo enviar el dato");
   }
 }
-
-Wi-Fi / Internet
-↓
-ThingSpeak / Blockchain
-↓
-Sirena de Emergencia y Autoridades
+```
