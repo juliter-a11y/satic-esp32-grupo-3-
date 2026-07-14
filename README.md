@@ -70,51 +70,70 @@ void loop() {
   // Aquí irá la lógica de medición y activación de alarma
 }
 
-```
 
-## Redes y Comunicaciones (Web 2.0)
+### Redes y Comunicaciones: Configuración Wi-Fi y envío de datos
 
-Aporte de [Josue]: Configuración de red WiFi y envío de datos a ThingSpeak.
+Aporte de [josue]: Configuración de conectividad Wi-Fi y protocolo HTTP para ThingSpeak.
 
-### Conexión WiFi
+Se agregó la explicación de la conexión de red, el código completo para conectar el ESP32 al Wi-Fi y enviar las lecturas del sensor de nivel de agua a la plataforma ThingSpeak mediante el protocolo HTTP GET.
 
-El ESP32 se conectará a la red WiFi de la comunidad usando las credenciales (SSID y contraseña). En caso de zonas sin cobertura WiFi, se contempla como alternativa un módulo de radiofrecuencia (LoRa) para el envío de datos a distancia.
-
-```cpp
 #include <WiFi.h>
-
-const char* ssid = "WiFi_Comunidad";
-const char* password = "contraseña123";
-
-void setup() {
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.println("Conectando a WiFi...");
-  }
-  Serial.println("Conectado a la red WiFi");
-  Serial.println(WiFi.localIP());
-}
-```
-
-### Envío de datos a ThingSpeak (HTTP GET)
-Cada cierto intervalo de tiempo (por ejemplo, cada 20 segundos), el ESP32 enviará el dato del nivel de agua medido hacia la plataforma ThingSpeak mediante una petición HTTP GET, usando el API Key del canal creado.
-
-```cpp
 #include <HTTPClient.h>
 
-String serverName = "http://api.thingspeak.com/update?api_key=TU_API_KEY";
+const char* ssid = "NOMBRE_DE_TU_RED_WIFI";
+const char* password = "CONTRASEÑA_DE_TU_RED";
+const char* server = "http://api.thingspeak.com/update";
+const char* apiKey = "TU_CLAVE_DE_ESCRITURA_THINGSPEAK";
+
+void conectarWiFi() {
+  WiFi.begin(ssid, password);
+  Serial.print("Conectando a Wi-Fi...");
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  
+  Serial.println("\n Conectado exitosamente");
+  Serial.print("IP asignada: ");
+  Serial.println(WiFi.localIP());
+}
 
 void enviarDatos(float nivelAgua) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    String url = serverName + "&field1=" + String(nivelAgua);
+    
+    // URL completa con el valor del sensor
+    String url = String(server) + "?api_key=" + apiKey + "&field1=" + String(nivelAgua);
+    
     http.begin(url);
-    int httpCode = http.GET();
-    Serial.println(httpCode);
+    int codigoRespuesta = http.GET();
+    
+    // Verificación del envío
+    if (codigoRespuesta > 0) {
+      Serial.print("Dato enviado. Código: ");
+      Serial.println(codigoRespuesta);
+    } else {
+      Serial.print("Error al enviar. Código: ");
+      Serial.println(codigoRespuesta);
+    }
+    
     http.end();
+  } else {
+    Serial.println("Sin conexión Wi-Fi, no se pudo enviar el dato");
   }
 }
-```
+
+## 5. Smart Contract - Blockchain
+**Aporte de: Sofía**
+
+Se implementará un Smart Contract en la red Blockchain para registrar de forma segura e inmutable los datos de nivel de agua obtenidos por el sensor HC-SR04. 
+
+**Funcionalidad:**
+- Cada vez que el ESP32 detecte un nivel de agua, enviará el dato a la Blockchain.
+- El Smart Contract guardará: fecha, hora, nivel del agua y ubicación.
+- Una vez registrado, el dato no se puede modificar, lo que garantiza transparencia.
+- Las autoridades y la comunidad podrán consultar el historial de alertas en tiempo real.
+
+**Tecnología usada:** Solidity en Ethereum / Polygon
+**Beneficio:** Evita falsificación de datos y sirve como evidencia oficial ante inundaciones.
